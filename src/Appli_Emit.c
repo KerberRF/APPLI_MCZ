@@ -1,10 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-<<<<<<< HEAD
 #include <sched.h>
-=======
->>>>>>> 8bc8d5ec08fa096ac23833f3d4c6f4ce19e02768
 #include <mxml.h>
 #include <wiringPi.h>
 #include "manchester.h"
@@ -341,7 +338,6 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
  printf(" Commande envoyee \n"); 
 }
 
-<<<<<<< HEAD
 //Fonction de passage du programme en temps 
 void scheduler_realtime() {
 	struct sched_param p;
@@ -359,20 +355,14 @@ void scheduler_standard() {
 		perror("Failed to switch to normal scheduler.");
 	}
 }
-=======
->>>>>>> 8bc8d5ec08fa096ac23833f3d4c6f4ce19e02768
 
 int main(void)
 {
    int i;
-<<<<<<< HEAD
 
    while (1) {
 
    mxml_node_t *tree = loadXmlTree("/usr/share/nginx/www/MCZ/cgi-bin/parameters.xml");
-=======
-   mxml_node_t *tree = loadXmlTree("/usr/share/nginx/www/MCZ/parameters.xml");
->>>>>>> 8bc8d5ec08fa096ac23833f3d4c6f4ce19e02768
 
    if(tree == NULL)
       return -1;
@@ -412,7 +402,6 @@ int main(void)
 
    // Send the data
    manchester_init();
-<<<<<<< HEAD
    //On passe en temps reel
    scheduler_realtime();
    // envoi de la commande RF
@@ -422,8 +411,5 @@ int main(void)
    scheduler_standard();
    sleep(1);
    }
-=======
-   manchester_send_trame(&packet,5);
->>>>>>> 8bc8d5ec08fa096ac23833f3d4c6f4ce19e02768
    return 0;
 }
