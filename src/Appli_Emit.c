@@ -338,7 +338,10 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
  printf(" Commande envoyee \n"); 
 }
 
-//Fonction de passage du programme en temps 
+
+/**************************************************************************
+                Fonction de passage du programme en temps .
+**************************************************************************/
 void scheduler_realtime() {
 	struct sched_param p;
 	p.__sched_priority = sched_get_priority_max(SCHED_RR);
@@ -347,7 +350,10 @@ void scheduler_realtime() {
 	}
 }
 
-//Fonction de remise du programme en temps standard
+
+/*************************************************************************
+              Fonction de remise du programme en temps standard
+*************************************************************************/
 void scheduler_standard() {
 	struct sched_param p;
 	p.__sched_priority = 0;
@@ -356,13 +362,17 @@ void scheduler_standard() {
 	}
 }
 
+
+/*************************************************************************
+                                  MAIN
+*************************************************************************/
 int main(void)
 {
    int i;
 
    while (1) {
-
-   mxml_node_t *tree = loadXmlTree("/usr/share/nginx/www/MCZ/cgi-bin/parameters.xml");
+   /* ointe vers l'emplacement du fichier xml */
+   mxml_node_t *tree = loadXmlTree("parameters.xml");
 
    if(tree == NULL)
       return -1;
