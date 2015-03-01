@@ -1,6 +1,6 @@
 all : Appli_Emit 
 
-Appli_Emit : Appli_Emit.o manchester.o utils.o
+Appli_Emit : Appli_Emit.o manchester.o
 	gcc -o $@ $^ -lwiringPi -lmxml
 
 Appli_Emit.o : Appli_Emit.c
