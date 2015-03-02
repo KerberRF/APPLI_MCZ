@@ -335,7 +335,9 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
    delayMicroseconds(INTER_TRAME);
     n--;
   }
+#ifdef DEBUG
  printf(" Commande envoyee \n"); 
+#endif /* DEBUG */
 }
 
 
@@ -409,11 +411,11 @@ int main(void)
    printf("octet 6 encapsule: 0x%x\n",packet.tabPacket[5]);
    printf("octet 7 encapsule: 0x%x\n",packet.tabPacket[6]);
 #endif /* DEBUG */
-
    // Send the data
    manchester_init();
    //On passe en temps reel
    scheduler_realtime();
+
    // envoi de la commande RF
    manchester_send_trame(&packet,5);
    
