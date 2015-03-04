@@ -374,7 +374,7 @@ int main(void)
 
    while (1) {
    /* ointe vers l'emplacement du fichier xml */
-   mxml_node_t *tree = loadXmlTree("parameters.xml");
+   mxml_node_t *tree = loadXmlTree("/usr/share/nginx/www/MCZ/cgi-bin/parameters.xml");
 
    if(tree == NULL)
       return -1;
