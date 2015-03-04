@@ -3,6 +3,8 @@ AppliMCZ.sh est a copier dans le repertoire /etc/init.d
 
 Activation du script :
 #update-rc.d AppliMCZ.sh defaults
+Autres commandes : update-rc.d <nom du service> remove/disable/enable
+
 #reboot
 
 Verifier le status des service:
