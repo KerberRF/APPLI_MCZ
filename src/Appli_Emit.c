@@ -43,9 +43,10 @@ unsigned short bad_crc;
 unsigned short text_length;
 
 
-struct s_ParametersOfMCZ Parameters_config = {0}; /* declaration d'une structure vide */
-struct s_Octet octet = {0};                       /* declaration d'une structure vide */
-struct s_Packet packet = {0};                /* declaration d'une structure vide */
+struct s_ParametersOfMCZ Util_config = {0}; /* declaration d'une structure vide */
+struct s_ParametersOfMCZ Old_config = {0}; /* declaration d'une structure vide */
+struct s_Octet octet = {0};                /* declaration d'une structure vide */
+struct s_Packet packet = {0};              /* declaration d'une structure vide */
 /*
  * Utilise mini-xml pour charger dans un arbre en memoire le contenu du fichier FileName
  * FileName : chemin du fichier à ouvrir
@@ -67,6 +68,26 @@ mxml_node_t *loadXmlTree(const char *FileName)
       printf("Erreur lecture xml %s\n",FileName);
    fclose(fp);
    return tree;
+}
+
+void CompartParameters(struct s_ParametersOfMCZ *oldParam, struct s_ParametersOfMCZ *newParam , int change)
+{
+      if (oldParam->Modes == newParam->Modes & oldParam->Puissance == newParam->Puissance &
+          oldParam->Ventilateur1 == newParam->Ventilateur1 & oldParam->Ventilateur2 == newParam->Ventilateur2 )
+         change = 0;
+      else 
+         change = 1;
+           
+      if (change == 1){
+
+         printf("changement \n");
+         oldParam->Modes = newParam->Modes;
+         oldParam->User = newParam->User;
+         oldParam->Puissance = newParam->Puissance;
+         oldParam->Ventilateur1 = newParam->Ventilateur1;
+         oldParam->Ventilateur2 = newParam->Ventilateur2;
+      }
+
 }
 
 void parseParameters(mxml_node_t *tree, struct s_ParametersOfMCZ *pParam)
@@ -370,27 +391,29 @@ void scheduler_standard() {
 *************************************************************************/
 int main(void)
 {
-   int i;
+   int changement = 0;
+
 
    while (1) {
-   /* ointe vers l'emplacement du fichier xml */
+   /* Pointe vers l'emplacement du fichier xml */
    mxml_node_t *tree = loadXmlTree("/usr/share/nginx/www/MCZ/cgi-bin/parameters.xml");
 
+ 
    if(tree == NULL)
       return -1;
-   parseParameters(tree, &Parameters_config);
+   parseParameters(tree, &Util_config);
    mxmlDelete(tree);
 #ifdef DEBUG 
    /* Display in-application configuration */
    printf("Parametres : \n");
-   printf("id = 0x%x\n", Parameters_config.Id);
-   printf("Mode = 0x%x\n", Parameters_config.Modes);
-   printf("User = 0x%x\n", Parameters_config.User);
-   printf("Puissance de chauffe = 0x%x\n", Parameters_config.Puissance);
-   printf("vitesse du Ventilateur1 = 0x%x\n", Parameters_config.Ventilateur1);
-   printf("vitesse du Ventilateur2 = 0x%x\n", Parameters_config.Ventilateur2);
+   printf("id = 0x%x\n", Util_config.Id);
+   printf("Mode = 0x%x\n", Util_config.Modes);
+   printf("User = 0x%x\n", Util_config.User);
+   printf("Puissance de chauffe = 0x%x\n", Util_config.Puissance);
+   printf("vitesse du Ventilateur1 = 0x%x\n", Util_config.Ventilateur1);
+   printf("vitesse du Ventilateur2 = 0x%x\n", Util_config.Ventilateur2);
 #endif /* DEBUG */
-   Convert2Databytes(&Parameters_config,&octet);
+   Convert2Databytes(&Util_config,&octet);
    Calcul_Crc(&octet);
 #ifdef DEBUG
    printf("octet 1: 0x%x\n",octet.O_MSB_Id);
@@ -411,17 +434,35 @@ int main(void)
    printf("octet 6 encapsule: 0x%x\n",packet.tabPacket[5]);
    printf("octet 7 encapsule: 0x%x\n",packet.tabPacket[6]);
 #endif /* DEBUG */
-   // Send the data
-   manchester_init();
-   //On passe en temps reel
-   scheduler_realtime();
+#ifdef DEBUG
+   printf("Parametres : \n");
+   printf("id = 0x%x\n", Old_config.Id);
+   printf("Mode = 0x%x\n", Old_config.Modes);
+   printf("User = 0x%x\n", Old_config.User);
+   printf("Puissance de chauffe = 0x%x\n", Old_config.Puissance);
+   printf("vitesse du Ventilateur1 = 0x%x\n", Old_config.Ventilateur1);
+   printf("vitesse du Ventilateur2 = 0x%x\n", Old_config.Ventilateur2);
+#endif /* DEBUG */
 
-   // envoi de la commande RF
-   manchester_send_trame(&packet,5);
+
+      // Comparaison des parametres
+      CompartParameters(&Old_config, &Util_config, changement);
+      if (changement == 1){
+
+        // Send the data
+        manchester_init();
+        //On passe en temps reel
+        scheduler_realtime();
+
+        // envoi de la commande RF
+        manchester_send_trame(&packet,5);
    
-   //On revient en mode normal
-   scheduler_standard();
+        //On revient en mode normal
+        scheduler_standard();
+     
+       }
    sleep(1);
    }
+   printf("sortie d'application MCZ");
    return 0;
 }
