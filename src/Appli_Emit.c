@@ -41,7 +41,7 @@ struct s_Packet {
 unsigned short good_crc; 
 unsigned short bad_crc; 
 unsigned short text_length;
-
+unsigned short emit = 0;
 
 struct s_ParametersOfMCZ Util_config = {0}; /* declaration d'une structure vide */
 struct s_ParametersOfMCZ Old_config = {0}; /* declaration d'une structure vide */
@@ -70,15 +70,15 @@ mxml_node_t *loadXmlTree(const char *FileName)
    return tree;
 }
 
-void CompartParameters(struct s_ParametersOfMCZ *oldParam, struct s_ParametersOfMCZ *newParam , int change)
+void CompartParameters(struct s_ParametersOfMCZ *oldParam, struct s_ParametersOfMCZ *newParam)
 {
       if (oldParam->Modes == newParam->Modes & oldParam->Puissance == newParam->Puissance &
           oldParam->Ventilateur1 == newParam->Ventilateur1 & oldParam->Ventilateur2 == newParam->Ventilateur2 )
-         change = 0;
+         emit = 0;
       else 
-         change = 1;
+         emit = 1;
            
-      if (change == 1){
+      if (emit == 1){
 
          printf("changement \n");
          oldParam->Modes = newParam->Modes;
@@ -389,9 +389,7 @@ void scheduler_standard() {
 /*************************************************************************
                                   MAIN
 *************************************************************************/
-int main(void)
-{
-   int changement = 0;
+int main(void){
 
 
    while (1) {
@@ -403,6 +401,7 @@ int main(void)
       return -1;
    parseParameters(tree, &Util_config);
    mxmlDelete(tree);
+
 #ifdef DEBUG 
    /* Display in-application configuration */
    printf("Parametres : \n");
@@ -444,16 +443,20 @@ int main(void)
    printf("vitesse du Ventilateur2 = 0x%x\n", Old_config.Ventilateur2);
 #endif /* DEBUG */
 
+   // Comparaison des parametres
+   CompartParameters(&Old_config, &Util_config);
+   // printf("%d",emit);
 
-      // Comparaison des parametres
-      CompartParameters(&Old_config, &Util_config, changement);
-      if (changement == 1){
+
+
+        if (emit){
 
         // Send the data
         manchester_init();
+        printf("envoie commande \n");
         //On passe en temps reel
         scheduler_realtime();
-
+        
         // envoi de la commande RF
         manchester_send_trame(&packet,5);
    
@@ -461,7 +464,7 @@ int main(void)
         scheduler_standard();
      
        }
-   sleep(1);
+   sleep(1.5);
    }
    printf("sortie d'application MCZ");
    return 0;
