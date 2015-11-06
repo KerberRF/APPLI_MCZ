@@ -1,37 +1,54 @@
-Tutoriel d'installation sur environnement Raspbian (debian pour RPI)
-
-Installation des packages pour le developpement:
+/***************************************************************************
+      Tutoriel d'installation sur environnement Raspbian (debian pour RPI)
+***************************************************************************/
+A noter : $ -> utilisateur (pi par défault sous Raspbian)  # -> administrateur (compte root)
+prérequis : Avant toute installation lancer la commande :
+# apt-get update
+# apt-get upgrade
+/**********************************************
+       Packages et AppliMCZ
+**********************************************/       
+- Installation des packages pour le developpement:
 # apt-get install build-essential
 
-Installation du parser XML:
+- Installation du parser XML:
 # apt-get install libmxml libmxml-dev
 
-Installation de Wiring PI pour envoyer les données RF:
+- Installation de Wiring PI pour envoyer les donnees RF:
 # git clone git://git.drogon.net/wiringPi
 # cd wiringPi
 # ./build
 
-Créer un répertoire de developement dans /home/<user> (au choix)
+- Creer un repertoire de developement dans /home/<user> (au choix)
 $ cd /home/<user>/<dev repertoire>
 $ git clone https://github.com/KerberRF/APPLI_MCZ.git
 
-Compilation de l'application avec GCC.
+- Compilation de l'application avec GCC.
 A lancer dans le répertoire de l'application bien sur.
 # gcc -o APPLIMCZ APPLIMCZ.c -lmxml -lwiringpi
 
-liens utiles: 
-
+- liens utiles: 
 git clone git://git.drogon.net/wiringPi
 https://github.com/ninjablocks/433Utils
 https://github.com/landru29/chacon-rpi
 
+/************************************************
+                     NOTES:
+************************************************/                     
+Les données sont envoyées sur un lien GPIO (pin 22) connecté sur un emetteur RF433Mhz:
+http://www.amazon.fr/Neuftech%C2%AE-433mhz-transmetteur-r%C3%A9cepteur-Arduino/dp/B00NIBI7IK/ref=sr_1_2?ie=UTF8&qid=1446823874&sr=8-2&keywords=emetteur+rf+433
+il faut ajouter une antenne à cette emetteur RF. Un fil de 17 cms à souder suffit.
+https://www.raspberrypi.org/forums/viewtopic.php?f=37&t=66946
+
 /*************************************
-Elaboration script cgi:
+      Elaboration scripts cgi:
 **************************************/
+Les scripts sont mis à disposition dans le répertoire /usr/share/nginx/www/MCZ/cgi-bin
+Ces scripts sont propres à mon application, ils sont appelés à chaque commande par ma zibase.
 
-Les scripts sont mise à disposition dans le répertoire /usr/share/nginx/www/MCZ/cgi-bin
-
-A noter : Utilisation de NGINX comme outil de serveur web.
+A noter l'utilisation de NGINX comme outil de serveur web.
+# apt-get install nginx
+# /etc/init.d/nginx start
 
 -> Modifier le fichier /etc/nginx/sites-available/default :
 
@@ -100,14 +117,10 @@ Exemple de script CGI perl :
 
 
 -> Lancer dans un navigateur ou dans un scénario dans la box domotique.
-    Exemple pour la valeur du paramètre "Mode":
-    \url{http://<IP>/MCZ/cgi-bin/Mode.cgi?Mode=x}
-    Exemple pour la valeur du paramètre "Puissance":
-    \url{http://<IP>/MCZ/cgi-bin/Puissance.cgi?Puis=x}
-    Exemple pour la valeur du paramètre "Ventilateur1":
-    \url{http://<IP>/MCZ/cgi-bin/Ventilateur1.cgi?Vent1=x}
-    Exemple pour la valeur du paramètre "Ventilateur2":
-    \url{http://<IP>/MCZ/cgi-bin/Ventilateur1.cgi?Vent2=x}
+    Exemple pour la valeur du paramètre "Mode": http://<IP>/MCZ/cgi-bin/Mode.cgi?Mode=x
+    Exemple pour la valeur du paramètre "Puissance": http://<IP>/MCZ/cgi-bin/Puissance.cgi?Puis=x
+    Exemple pour la valeur du paramètre "Ventilateur1": http://<IP>/MCZ/cgi-bin/Ventilateur1.cgi?Vent1=x
+    Exemple pour la valeur du paramètre "Ventilateur2": http://<IP>/MCZ/cgi-bin/Ventilateur1.cgi?Vent2=x
     x étant la valeur associée dans la commande.
 
 -> Ne pas oublier de lancer l'application en tâche de fond.
