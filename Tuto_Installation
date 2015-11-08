@@ -12,7 +12,7 @@ prérequis : Avant toute installation lancer la commande :
 # apt-get install build-essential
 
 - Installation du parser XML:
-# apt-get install libmxml libmxml-dev
+# apt-get install libmxml-dev
 
 - Installation de Wiring PI pour envoyer les donnees RF:
 # git clone git://git.drogon.net/wiringPi
@@ -25,7 +25,7 @@ $ git clone https://github.com/KerberRF/APPLI_MCZ.git
 
 - Compilation de l'application avec GCC.
 A lancer dans le répertoire de l'application bien sur.
-# gcc -o APPLIMCZ APPLIMCZ.c -lmxml -lwiringpi
+# make
 
 - liens utiles: 
 git clone git://git.drogon.net/wiringPi
