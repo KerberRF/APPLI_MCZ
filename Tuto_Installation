@@ -9,7 +9,7 @@ prérequis : Avant toute installation lancer la commande :
        Packages et AppliMCZ
 **********************************************/       
 - Installation des packages pour le developpement:
-# apt-get install build-essential
+# apt-get install build-essential git-core
 
 - Installation du parser XML:
 # apt-get install libmxml-dev
