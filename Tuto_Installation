@@ -50,7 +50,7 @@ Ces scripts sont propres à mon application, ils sont appelés à chaque command
       Configuration serveur web nginx
 ******************************************/      
 A noter l'utilisation de NGINX comme outil de serveur web.
-# apt-get install nginx
+# apt-get install nginx fcgiwrap
 # /etc/init.d/nginx start
 
 -> Modifier le fichier /etc/nginx/sites-available/default :
