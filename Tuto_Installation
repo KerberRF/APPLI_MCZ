@@ -32,25 +32,41 @@ git clone git://git.drogon.net/wiringPi
 https://github.com/ninjablocks/433Utils
 https://github.com/landru29/chacon-rpi
 
-/************************************************
+/************************************************************************************************************************
                      NOTES:
-************************************************/                     
-Les données sont envoyées sur un lien GPIO (pin 22) connecté sur un emetteur RF433Mhz:
+*************************************************************************************************************************/                     
+Les données sont envoyées sur le GPIO 0 (pin 11) connecté sur un emetteur RF433Mhz:
 http://www.amazon.fr/Neuftech%C2%AE-433mhz-transmetteur-r%C3%A9cepteur-Arduino/dp/B00NIBI7IK/ref=sr_1_2?ie=UTF8&qid=1446823874&sr=8-2&keywords=emetteur+rf+433
 il faut ajouter une antenne à cette emetteur RF. Un fil de 17 cms à souder suffit.
 https://www.raspberrypi.org/forums/viewtopic.php?f=37&t=66946
 
-/*******************************************************************************
-      Elaboration scripts cgi:
-********************************************************************************/
-Les scripts sont mis à disposition dans le répertoire /usr/share/nginx/www/MCZ/cgi-bin
+/**********************  Attention : *********************************************************/
+Pour le modèle B+, l'émetteur 433 est alimenté en 5V, le recepteur 433 est alimenté en 3V3.)
+/*********************************************************************************************/ 
+ 
+ 
+/*************************************************************************************************************************
+                       Configuration serveur web nginx
+**************************************************************************************************************************/ 
+A noter l'utilisation de NGINX comme outil de serveur web. Nginx permet de gérer les scripts fastCGI en ajoutant le package fcgiwrap.
+
+# apt-get install nginx fcgiwrap
+Version nginx testée 1.6.2
+
+/*********************************************************************************************
+                       Mise en place des scripts cgi sous Linux:
+**********************************************************************************************/
+Les scripts CGI perl sont mis à disposition dans le répertoire /var/www/html/MCZ/cgi-bin
+
+Les droits sont à modifier :
+# chown -R www-data:www-data /var/www
+
+Ainsi que le socket dans /var/run :
+# chown www-data:www-data /var/run/fcgiwrap.socket 
+ 
 Ces scripts sont propres à mon application, ils sont appelés à chaque commande par ma zibase.
 
-/*****************************************
-      Configuration serveur web nginx
-******************************************/      
-A noter l'utilisation de NGINX comme outil de serveur web.
-# apt-get install nginx fcgiwrap
+Démarrage du service (pas besoin de le faire par défault)
 # /etc/init.d/nginx start
 
 -> Modifier le fichier /etc/nginx/sites-available/default :
@@ -70,12 +86,11 @@ A noter l'utilisation de NGINX comme outil de serveur web.
 -> puis relancer NGINX : 
 $ sudo nginx -s reload
 
-/*********************************
-      Creation script cgi perl
-*********************************/
+/***********************************************************************************************
+                             Creation de script cgi perl
+************************************************************************************************/
 Ici les scripts utilisent un parser XML perl (use XML::LibXML), donc il faudra installer le package.
 $ sudo apt-get install libxml-libxml-perl
-
 
 Exemple de script CGI perl :
 
