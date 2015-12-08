@@ -363,7 +363,7 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
 
 
 /**************************************************************************
-                Fonction de passage du programme en temps .
+                Fonction de passage du programme en temps réel.
 **************************************************************************/
 void scheduler_realtime() {
 	struct sched_param p;
