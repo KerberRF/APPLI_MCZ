@@ -25,3 +25,5 @@ print $d->toFile($filename,0);
 print "Content-type: text/html\n\n";
      # print your basic html tags.
      # and the content of them.
+# Lancement de la commande RF vers le MCZ en "one shoot"     
+system "sudo /home/pi/Dev/APPLI_MCZ/src/Appli_Cmd_Mcz"    
