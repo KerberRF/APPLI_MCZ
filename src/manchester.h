@@ -11,9 +11,9 @@
 //#define DEBUT_COMMANDE  100000 /* 100ms */
 
 #define INTER_DONNEE    816  /* 816 us */
-#define HALF_BIT        408  /* 816 us /2 */
-#define INTER_TRAME     100000 /* 100 ms */
-#define DEBUT_COMMANDE  200000 /* 200ms */
+#define HALF_BIT        408  /* 816 us/2 */
+#define INTER_TRAME     4626 /* 4,6 ms */
+#define DEBUT_COMMANDE  100000 /* 100ms */
 
 //#define INTER_DONNEE    860  /* 860 us */
 //#define HALF_BIT        390  /* 390 us */
