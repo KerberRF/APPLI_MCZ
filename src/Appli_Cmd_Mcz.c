@@ -337,7 +337,7 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
   lenght = n;
       // delayMicroseconds(DEBUT_COMMANDE);
   while(n>0) {
-    digitalWrite(0, LOW);
+    digitalWrite(txPin, LOW);
 #ifdef DEBUG  
     printf(" trame %d: \n",(lenght+1)-n);
 #endif /* DEBUG */	
