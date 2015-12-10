@@ -5,10 +5,16 @@
 
 
 // in microseconds
-#define INTER_DONNEE    833  /* 833 us */
-#define HALF_BIT        416  /* 416 us /2 */
-#define INTER_TRAME     20000 /* 20 ms */
-#define DEBUT_COMMANDE  100000 /* 100ms */
+//#define INTER_DONNEE    833  /* 833 us */
+//#define HALF_BIT        416  /* 416 us /2 */
+//#define INTER_TRAME     20000 /* 20 ms */
+//#define DEBUT_COMMANDE  100000 /* 100ms */
+
+#define INTER_DONNEE    816  /* 816 us */
+#define HALF_BIT        408  /* 408 us /2 */
+#define INTER_TRAME     100000 /* 100 ms */
+#define DEBUT_COMMANDE  200000 /* 200ms */
+
 //#define INTER_DONNEE    860  /* 860 us */
 //#define HALF_BIT        390  /* 390 us /2 */
 //#define INTER_TRAME     5080 /* 5,08 ms */
