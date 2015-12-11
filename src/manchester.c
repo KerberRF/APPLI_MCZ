@@ -42,7 +42,8 @@ void manchester_send_bit(int8_t b) {
 void manchester_send(uint16_t t) {
     int mask = 0x800;
 //    int ones = 0;
-
+    manchester_send_bit(0); /* bit de preambule */
+    delayMicroseconds(HALF_BIT);
     for (int i = 0; i < 12; ++i) {
 	int bit =  !! (t & mask);
 	manchester_send_bit(bit);
