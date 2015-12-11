@@ -324,6 +324,7 @@ void encapsule(struct s_Octet *oct, struct s_Packet *Pack)
         }
     }
 }
+
 /***************************************************************************
               Envoie des trames de données codées en "manchester".
     Entree : packet 12bits et n nombre de repetition
@@ -335,13 +336,13 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
   unsigned char txPin = 0;
 
   lenght = n;
-      // delayMicroseconds(DEBUT_COMMANDE);
+  delayMicroseconds(DEBUT_COMMANDE);
   while(n>0) {
     digitalWrite(txPin, LOW);
 #ifdef DEBUG  
     printf(" trame %d: \n",(lenght+1)-n);
 #endif /* DEBUG */	
-    for (i=0; i<7; i++){
+    for (i=0; i<7; i++){       /* codage des 7 mots de 12 bits */
         digitalWrite(txPin, HIGH);
         delayMicroseconds(INTER_DONNEE);
 	manchester_send(Pack->tabPacket[i]);
@@ -361,7 +362,6 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
 #endif /* DEBUG */
 }
 
-
 /**************************************************************************
                 Fonction de passage du programme en temps réel.
 **************************************************************************/
@@ -372,7 +372,6 @@ void scheduler_realtime() {
 		perror("Failed to switch to realtime scheduler.");
 	}
 }
-
 
 /*************************************************************************
               Fonction de remise du programme en temps standard
@@ -385,12 +384,10 @@ void scheduler_standard() {
 	}
 }
 
-
 /*************************************************************************
                                   MAIN
 *************************************************************************/
 int main(void){
-
 
    //while (1) {
    /* Pointe vers l'emplacement du fichier xml */
@@ -447,18 +444,15 @@ int main(void){
    CompartParameters(&Old_config, &Util_config);
    // printf("%d",emit);
 
-
-
    //     if (emit){
-
     // Send the data
     manchester_init();
-    printf("envoie commande \n");
+    //printf("envoie commande \n");
     //On passe en temps reel
     scheduler_realtime();
         
     // envoi de la commande RF
-    manchester_send_trame(&packet,4);
+    manchester_send_trame(&packet,5);
    
     //On revient en mode normal
     scheduler_standard();
@@ -466,6 +460,6 @@ int main(void){
    //    }
    //sleep(1.5);
    //}
-   printf("sortie d'application MCZ");
+   //printf("sortie d'application MCZ \n");
    return 0;
 }
