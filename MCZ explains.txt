@@ -1,0 +1,28 @@
+/****************************************************************************************
+                          Protocole de communication
+****************************************************************************************/
+
+Le protocole de communication entre le système à pellet MCZ (insert et poele) est basé sur
+un envoie de données sur 7 octets en mode half-duplex unidirectionelle. D'une télécommande 
+vers le système MCZ par lien RF 433 MHz codé en manchester.
+L'intégrité des données (5 premiers octets) est vérifié par un CRC16 type CCITT 16 xmodem (2 derniers octets).
+
+        |   7   |   6   |   5   |   4   |   3   |   2   |   1   |   0   |
+Octet 1 |                Octet 1 ID télécommande (MSB)                  |
+Octet 2 |                Octet 2 ID télécommande                        |
+Octet 3 |                Octet 3 ID télécommande (LSB)                  |
+Octet 4 | Vitesse Ventilateur 1 | Puissance de chauffe  |     Modes     |
+Octet 5 |      User     | Vitesse Ventilateur 2 | RESV  | RESV  | RESV  |
+Octet 6 |               CRC MSB                                         |
+Octet 7 |               CRC LSB                                         |
+
+Chaque octet est encapsulé dans un mot de 12bits :
+| bit de start  |   7   |   6   |   5   |   4   |   3   |   2   |   1   |   0   | bit début de trame | bit de parité | bit de stop |
+
+Ce mot est ensuite envoyé par codage manchester en trame répétée 5 fois en RF433 au système MCZ.
+Celui-ci interprète les valeurs des paramètres :
+Vitesse Ventilateur 1 => 0 à 5, 6 pour auto
+Vitesse Ventilateur 2 => 0 à 5, 6 pour auto
+Modes => 0 OFF | 1 ON | 2 AUTO | 3 ECO
+User => 0 à 3  par defaut = 2
+Puissance de Chauffe => 1 à 5
