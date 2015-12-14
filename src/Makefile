@@ -13,7 +13,7 @@ Appli_Cmd_Mcz.o : Appli_Cmd_Mcz.c
 	gcc -c $< -o $@
 
 %.o : %.c %.h
-	gcc -c -std=c99 $< -o $@1 | gcc -c -std=c99 $< -o $@2
+	gcc -c -std=c99 $< -o $@ | gcc -c -std=c99 $< -o $@
 
 clean:
 	rm -f Appli_Emit *.o |  rm -f Appli_Cmd_Mcz *.o
