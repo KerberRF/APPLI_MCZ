@@ -7,7 +7,7 @@
 // in microseconds
 #define INTER_DONNEE    833  /* 833 us = 1200 bps */
 #define HALF_BIT        416  /* 833 us/2 */
-#define INTER_TRAME     4100 /* 4,1 ms */
+#define INTER_TRAME     3650 /* 3,65 ms */
 #define DEBUT_COMMANDE  100000 /* 100ms */
 
 //#define INTER_DONNEE    842  /* 842 us = 1200 bps +/- 10% */
