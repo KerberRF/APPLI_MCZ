@@ -9,8 +9,8 @@
 #define           poly                  0x1021          /* crc-ccitt mask */
 #define           CRC_initial_xmodem    0x0000          /* crc-ccitt initial value for xmodem */
 #define           CRC_initial_CCITT     0xFFFF          /* crc-ccitt initial value for standard */
-#define           DEBUG
-//#define           NO DEBUG
+//#define           DEBUG
+#define           NO DEBUG
 
 struct s_ParametersOfMCZ {
    int Id;
