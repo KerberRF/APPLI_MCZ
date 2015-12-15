@@ -293,7 +293,7 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
     for (i=0; i<7; i++){
         //digitalWrite(txPin, HIGH);
         manchester_send(Pack->tabPacket[i]);
-        delayMicroseconds(INTER_DONNEE);
+        //delayMicroseconds(INTER_DONNEE);
 #ifdef DEBUG	
 	printf(" %x \n",Pack->tabPacket[i]);
 #endif /* DEBUG */	
