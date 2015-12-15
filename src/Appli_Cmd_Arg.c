@@ -286,14 +286,14 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
   digitalWrite(txPin, HIGH);
   delayMicroseconds(DEBUT_COMMANDE);
   while(n>0) {
-    digitalWrite(txPin, LOW);
+    //digitalWrite(txPin, LOW);
 #ifdef DEBUG  
     printf(" trame %d: \n",(lenght+1)-n);
 #endif /* DEBUG */	
     for (i=0; i<7; i++){
-        digitalWrite(txPin, HIGH);
+        //digitalWrite(txPin, HIGH);
+        manchester_send(Pack->tabPacket[i]);
         delayMicroseconds(INTER_DONNEE);
-	manchester_send(Pack->tabPacket[i]);
 #ifdef DEBUG	
 	printf(" %x \n",Pack->tabPacket[i]);
 #endif /* DEBUG */	
@@ -301,7 +301,7 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
 #ifdef DEBUG	
    printf("Delai intertrame \n");
 #endif /* DEBUG */	
-   digitalWrite(txPin, LOW);
+   //digitalWrite(txPin, LOW);
    delayMicroseconds(INTER_TRAME);
     n--;
   }
