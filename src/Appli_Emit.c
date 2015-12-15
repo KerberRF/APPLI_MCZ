@@ -49,7 +49,7 @@ struct s_Octet octet = {0};                /* declaration d'une structure vide *
 struct s_Packet packet = {0};              /* declaration d'une structure vide */
 /*
  * Utilise mini-xml pour charger dans un arbre en memoire le contenu du fichier FileName
- * FileName : chemin du fichier à ouvrir
+ * FileName : chemin du fichier Ã  ouvrir
  * return : Pointeur sur le noeud racine de l'arbre
  */
 mxml_node_t *loadXmlTree(const char *FileName)
@@ -325,7 +325,7 @@ void encapsule(struct s_Octet *oct, struct s_Packet *Pack)
     }
 }
 /***************************************************************************
-              Envoie des trames de données codées en "manchester".
+              Envoie des trames de donnÃ©es codÃ©es en "manchester".
     Entree : packet 12bits et n nombre de repetition
     
 /***************************************************************************/
@@ -335,9 +335,10 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
   unsigned char txPin = 0;
 
   lenght = n;
-      // delayMicroseconds(DEBUT_COMMANDE);
+  digitalWrite(txPin, HIGH);
+  delayMicroseconds(DEBUT_COMMANDE);
   while(n>0) {
-    digitalWrite(0, LOW);
+    digitalWrite(txPin, LOW);
 #ifdef DEBUG  
     printf(" trame %d: \n",(lenght+1)-n);
 #endif /* DEBUG */	
