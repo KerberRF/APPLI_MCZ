@@ -442,7 +442,7 @@ int main(void){
 #endif /* DEBUG */
 
    // Comparaison des parametres
-   CompartParameters(&Old_config, &Util_config);
+   // CompartParameters(&Old_config, &Util_config);
    // printf("%d",emit);
 
    //     if (emit){
