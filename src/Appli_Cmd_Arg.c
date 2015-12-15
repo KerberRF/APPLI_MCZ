@@ -283,13 +283,14 @@ void manchester_send_trame(struct s_Packet *Pack,int n) {
   unsigned char txPin = 0;
 
   lenght = n;
+  digitalWrite(txPin, HIGH);
   delayMicroseconds(DEBUT_COMMANDE);
   while(n>0) {
     digitalWrite(txPin, LOW);
 #ifdef DEBUG  
     printf(" trame %d: \n",(lenght+1)-n);
 #endif /* DEBUG */	
-    for (i=0; i<7; i++){       /* codage des 7 mots de 12 bits */
+    for (i=0; i<7; i++){
         digitalWrite(txPin, HIGH);
         delayMicroseconds(INTER_DONNEE);
 	manchester_send(Pack->tabPacket[i]);
