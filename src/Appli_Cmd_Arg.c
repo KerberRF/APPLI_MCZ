@@ -19,7 +19,6 @@ struct s_ParametersOfMCZ {
    int Puissance;
    int Ventilateur1;
    int Ventilateur2;
-   short int Trameindentique;
 };
 
 struct s_Octet {
@@ -82,7 +81,7 @@ void Convert2Databytes(struct s_ParametersOfMCZ *pParam, struct s_Octet *oct)
    oct->O_Parameter1 = (pParam->Ventilateur1 <<5 | 
 					   pParam->Puissance <<2 | 
 					   pParam->Modes) & 0xFF;
-   oct->O_Parameter2 = (pParam->User <<6 | pParam->Ventilateur2 << 3 | pParam->Trameindentique << 1) & 0xFF;
+   oct->O_Parameter2 = (pParam->User <<6 | pParam->Ventilateur2 << 3) & 0xFF;
 }
 /***************************************************************************
               Calcul du CRC-CCITT16.   
@@ -345,7 +344,7 @@ int main(int argc, char *argv []){
     printf("Appli_Cmd_Arg <ID> <MODE> <USER> <PUISSANCE_CHAUFFE> <VENTILE1> <VENTIL2> \n");
     exit(-2);
    }
-   if(argc != 8)
+   if(argc != 7)
    {
       printf("Incorrect number of args\n");
       exit(-1);
@@ -386,13 +385,6 @@ int main(int argc, char *argv []){
     printf("Mauvais argument pour la puissance du ventilateur 2 (entre 0 et 6) \n");
     exit(-2);
    }
-   if(sscanf(argv[7],"%d",&Util_config.Trameindentique) !=1)
-   {
-    /* it is an error */
-    printf("Mauvais argument pour la valeur du flag (0 ou 1) \n");
-    exit(-2);
-   }
-
 
 #ifdef DEBUG 
    /* Display in-application configuration */
@@ -403,7 +395,6 @@ int main(int argc, char *argv []){
    printf("Puissance de chauffe = 0x%x\n", Util_config.Puissance);
    printf("vitesse du Ventilateur1 = 0x%x\n", Util_config.Ventilateur1);
    printf("vitesse du Ventilateur2 = 0x%x\n", Util_config.Ventilateur2);
-   printf("Trame identique precedente = 0x%x\n", Util_config.Trameindentique);
 #endif /* DEBUG */
    Convert2Databytes(&Util_config,&octet);
    Calcul_Crc(&octet);
