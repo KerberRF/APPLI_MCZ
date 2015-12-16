@@ -15,7 +15,7 @@
 //#define DEBUT_COMMANDE  103000 /* 100ms */
 
 /*********** temps prenant en compte la latence *******/
-#define HALF_BIT        408  /* 829 us/2 */
+#define HALF_BIT        393  /* 829 us/2 */
 #define INTER_TRAME     3712 /* 3,712 ms */
 #define DEBUT_COMMANDE  103000 /* 100ms */
 
