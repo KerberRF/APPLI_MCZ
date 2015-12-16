@@ -12,21 +12,15 @@
 //#define DEBUT_COMMANDE  100000 /* 100ms */
 
 /************ Temps issues mesure télécommande MCZ ****/
-#define INTER_DONNEE    829  /* 829 us = 1200 bps +/- 10% */
-#define HALF_BIT        414  /* 829 us/2 */
+//#define INTER_DONNEE    829  /* 829 us = 1200 bps +/- 10% */
+//#define HALF_BIT        414  /* 829 us/2 */
+//#define INTER_TRAME     3712 /* 3,712 ms */
+//#define DEBUT_COMMANDE  103000 /* 100ms */
+
+/*********** temps prenant en compte la latence *******/
+#define HALF_BIT        408  /* 829 us/2 */
 #define INTER_TRAME     3712 /* 3,712 ms */
 #define DEBUT_COMMANDE  103000 /* 100ms */
-
-/************ Temps autres ****/
-//#define INTER_DONNEE    842  /* 842 us = 1200 bps +/- 10% */
-//#define HALF_BIT        421  /* 842 us/2 */
-//#define INTER_TRAME     4100 /* 4,1 ms */
-//#define DEBUT_COMMANDE  100000 /* 100ms */
-
-//#define INTER_DONNEE    860  /* 860 us */
-//#define HALF_BIT        390  /* 390 us */
-//#define INTER_TRAME     5080 /* 5,08 ms */
-//#define DEBUT_COMMANDE  100000 /* 100ms */
 
 int manchester_init();
 void manchester_send(uint16_t t);
