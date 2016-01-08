@@ -1,6 +1,12 @@
 var util = require('util')
 var exec = require('child_process').exec;
- 
+var sleep = require('sleep');
+
+var data = [
+    {
+      "id": "0", "url": "/switches/0", "name": "Power", "script": "sudo /home/pi/Dev/APPLI_MCZ/src/Appli_Cmd_Arg", "Id": "9859842 ", "Mode": "0", "User": "2", "Puissance" :"0", "Ventilateur1" : "0", "Ventilateur2" : "0"
+    },
+ ]; 
 // GET
 exports.switches = function (req, res) {
   console.log('Getting switches.');
