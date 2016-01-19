@@ -36,9 +36,8 @@ https://github.com/landru29/chacon-rpi
                      NOTES:
 *************************************************************************************************************************/                     
 Les données sont envoyées sur le GPIO 0 (pin 11) connecté sur un emetteur RF433Mhz:
-http://www.amazon.fr/Neuftech%C2%AE-433mhz-transmetteur-r%C3%A9cepteur-Arduino/dp/B00NIBI7IK/ref=sr_1_2?ie=UTF8&qid=1446823874&sr=8-2&keywords=emetteur+rf+433
-il faut ajouter une antenne à cette emetteur RF. Un fil de 17 cms à souder suffit.
-https://www.raspberrypi.org/forums/viewtopic.php?f=37&t=66946
+http://www.dx.com/fr/p/mini-rf-transmitter-receiver-module-433mhz-wireless-link-kit-w-spring-antennas-for-arduino-413171#.Vp4I1nYveCg
+Il est préférable de commander le produit avec l'antenne déjà faite.
 
 /**********************  Attention : *********************************************************/
 Pour le modèle B+, l'émetteur 433 est alimenté en 5V, le recepteur 433 est alimenté en 3V3.)
