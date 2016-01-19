@@ -36,8 +36,10 @@ https://github.com/landru29/chacon-rpi
                      NOTES:
 *************************************************************************************************************************/                     
 Les données sont envoyées sur le GPIO 0 (pin 11) connecté sur un emetteur RF433Mhz:
+http://www.amazon.fr/XCSOURCE-Transmetteur-R%C3%A9cepteur-Arduino-TE122/dp/B00V4ISS38/ref=sr_1_1?ie=UTF8&qid=1453198678&sr=8-1&keywords=433
 http://www.dx.com/fr/p/mini-rf-transmitter-receiver-module-433mhz-wireless-link-kit-w-spring-antennas-for-arduino-413171#.Vp4I1nYveCg
 Il est préférable de commander le produit avec l'antenne déjà faite.
+http://www.amazon.fr/Very100-Antenne-Ressort-H%C3%A9lico%C3%AFdal-Beaucoup/dp/B00KA371U4/ref=pd_sim_147_6?ie=UTF8&dpID=51jVBq2gZNL&dpSrc=sims&preST=_AC_UL160_SR160%2C160_&refRID=01TRWX5NX41H6W967MBX
 
 /**********************  Attention : *********************************************************/
 Pour le modèle B+, l'émetteur 433 est alimenté en 5V, le recepteur 433 est alimenté en 3V3.)
